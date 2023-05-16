@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Statistic.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Category.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Account.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Utils/DBUtils.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/User/Register_Form.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Units.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Question.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Exams.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Users.java</file>
-            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/Model/Choice.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/Admin/QuanLyQuanNhan.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/DAO/KhaoSatDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/User/ThamGiaKhaoSat.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/DAO/QuanNhanDAO.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/User/Login_Form.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/Admin/QuanLyBaiKhaoSat.java</file>
+            <file>file:/C:/Users/DELL/Documents/NetBeansProjects/KhoaLuanTotNghiep_Nhom53/src/View/Admin/QuanLyThongKe.java</file>
         </group>
     </open-files>
 </project-private>

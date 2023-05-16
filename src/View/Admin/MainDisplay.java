@@ -4,22 +4,24 @@
  */
 package View.Admin;
 
+import View.User.Login_Form;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
  */
 public class MainDisplay extends javax.swing.JFrame {
-
     /**
      * Creates new form MainDisplay
      */
     public MainDisplay() {
         initComponents();
         setLocationRelativeTo(null);
-        ManagerExam managerExam = new ManagerExam();
-        tabMain.add(managerExam);
+        QuanLyBaiKhaoSat qlKhaoSat = new QuanLyBaiKhaoSat();
+        tabMain.add(qlKhaoSat);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,12 +32,13 @@ public class MainDisplay extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        btnQLExam = new javax.swing.JButton();
-        btnQLQuestion = new javax.swing.JButton();
+        btnQLKhaoSat = new javax.swing.JButton();
         btnQLUser = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
+        btnDangXuat = new javax.swing.JButton();
         tabMain = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,41 +46,36 @@ public class MainDisplay extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/anhnen.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 210));
 
         jPanel3.setLayout(new java.awt.GridLayout(4, 0, 0, 15));
 
-        btnQLExam.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQLExam.setText("Quản Lý Đề Thi");
-        btnQLExam.addActionListener(new java.awt.event.ActionListener() {
+        btnQLKhaoSat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQLKhaoSat.setText("Quản Lý Bài Khảo Sát");
+        btnQLKhaoSat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQLExamActionPerformed(evt);
+                btnQLKhaoSatActionPerformed(evt);
             }
         });
-        jPanel3.add(btnQLExam);
-
-        btnQLQuestion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQLQuestion.setText("Quản Lý Câu Hỏi");
-        btnQLQuestion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQLQuestionActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnQLQuestion);
+        jPanel3.add(btnQLKhaoSat);
 
         btnQLUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQLUser.setText("Quản Lý Người Thi");
+        btnQLUser.setText("Quản Lý Quân Nhân");
         btnQLUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQLUserActionPerformed(evt);
@@ -94,6 +92,17 @@ public class MainDisplay extends javax.swing.JFrame {
         });
         jPanel3.add(btnThongKe);
 
+        btnDangXuat.setBackground(new java.awt.Color(255, 51, 0));
+        btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDangXuat.setForeground(new java.awt.Color(0, 51, 51));
+        btnDangXuat.setText("Đăng Xuất");
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnDangXuat);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -103,46 +112,32 @@ public class MainDisplay extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 129, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 390));
-        getContentPane().add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1000, 600));
+        getContentPane().add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1110, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnQLExamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLExamActionPerformed
-          
-        String namebtn = btnQLExam.getActionCommand();
-        if(namebtn.equals("Quản Lý Đề Thi")){
-            if(tabMain.getTabCount() != 0){
-                tabMain.removeAll();
-            }
-        ManagerExam managerExam = new ManagerExam();
-        tabMain.addTab("Quản Lý Đề Thi", managerExam);
-        }
-    }//GEN-LAST:event_btnQLExamActionPerformed
-
-    private void btnQLQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLQuestionActionPerformed
-        String namebtn = btnQLQuestion.getActionCommand();
-        if(namebtn.equals("Quản Lý Câu Hỏi")){
-            if(tabMain.getTabCount() != 0 ){
-                tabMain.removeAll();
-            }
-            ManagerQuestion managerQuestion = new ManagerQuestion();
-            tabMain.add("Quản Lý Câu Hỏi",managerQuestion);
-        }
-    }//GEN-LAST:event_btnQLQuestionActionPerformed
+    private void btnQLKhaoSatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLKhaoSatActionPerformed
+        if(tabMain.getTabCount() != 0){
+              tabMain.removeAll();
+          }
+        QuanLyBaiKhaoSat qlKhaoSat = new QuanLyBaiKhaoSat();
+        tabMain.addTab("Quản Lý Bài Khảo Sát", qlKhaoSat);
+    }//GEN-LAST:event_btnQLKhaoSatActionPerformed
 
     private void btnQLUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLUserActionPerformed
         String namebtn = btnQLUser.getActionCommand();
-        if(namebtn.equalsIgnoreCase("Quản Lý Người Thi")){
+        if(namebtn.equalsIgnoreCase("Quản Lý Quân Nhân")){
             if(tabMain.getTabCount() != 0 ){
                 tabMain.removeAll();
             }
-            ManagerUser managerUser = new ManagerUser();
+            QuanLyQuanNhan managerUser = new QuanLyQuanNhan();
             tabMain.add("Quản Lý Người Thi",managerUser);
         }
     }//GEN-LAST:event_btnQLUserActionPerformed
@@ -153,11 +148,18 @@ public class MainDisplay extends javax.swing.JFrame {
             if(tabMain.getTabCount() != 0 ){
                 tabMain.removeAll();
             }
-            ManagerThongKe managerThongKe = new ManagerThongKe();
+            QuanLyThongKe managerThongKe = new QuanLyThongKe();
             tabMain.add("Thống Kê",managerThongKe);
         }
     }//GEN-LAST:event_btnThongKeActionPerformed
 
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thoát ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        if (choice == JOptionPane.YES_OPTION) {
+           this.setVisible(false);
+           new Login_Form().setVisible(true);
+        } 
+    }//GEN-LAST:event_btnDangXuatActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -192,12 +194,14 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnQLExam;
-    private javax.swing.JButton btnQLQuestion;
+    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnQLKhaoSat;
     private javax.swing.JButton btnQLUser;
     private javax.swing.JButton btnThongKe;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

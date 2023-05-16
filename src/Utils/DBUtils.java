@@ -17,7 +17,7 @@ public class DBUtils {
         Connection con = null;
         try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=ThiTracNghiem;encrypt=false;";
+                String connectionUrl = "jdbc:sqlserver://localhost:1433;databaseName=KhaoSatQuanNhan;encrypt=false;";
                 con = DriverManager.getConnection(connectionUrl, "sa", "phuc0985531639");
 		System.out.println("Connection Success !");
         } catch (ClassNotFoundException | SQLException e) {
