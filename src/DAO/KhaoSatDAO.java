@@ -67,31 +67,32 @@ public class KhaoSatDAO {
             pps.setDate(3, Date.valueOf(bks.getThoiGianBatDau()));
             pps.setDate(4, Date.valueOf(bks.getThoiGianKetThuc()));
             pps.setString(5,bks.getTrangThai());
-            if(!pps.execute()){
-                ResultSet rs = pps.getGeneratedKeys();
-                while(rs.next()){
-                    int idBKS = rs.getInt(1);
-                    String select = "SELECT * FROM QuanNhan QN JOIN CapBac CB ON QN.IdCapBac = CB.MaCapBac WHERE TenCapBac = ? AND IdVaiTro = 1";
-                    pps = conn.prepareStatement(select);
-                    pps.setString(1, bks.getDoiTuong());
-                    ResultSet rss = pps.executeQuery();
-                    while(rss.next()){
-                        String insertQN_BKS = "INSERT INTO QN_BKS VALUES (?,?)";
-                        pps = conn.prepareStatement(insertQN_BKS);
-                        pps.setInt(1, rss.getInt("ID"));
-                        pps.setInt(2, idBKS);
-                        pps.execute();
-                    }
-                }
-                
-            }
+            return pps.execute();
+//            if(!pps.execute()){
+//                ResultSet rs = pps.getGeneratedKeys();
+//                while(rs.next()){
+//                    int idBKS = rs.getInt(1);
+//                    String select = "SELECT * FROM QuanNhan QN JOIN CapBac CB ON QN.IdCapBac = CB.MaCapBac WHERE TenCapBac = ? AND IdVaiTro = 1";
+//                    pps = conn.prepareStatement(select);
+//                    pps.setString(1, bks.getDoiTuong());
+//                    ResultSet rss = pps.executeQuery();
+//                    while(rss.next()){
+//                        String insertQN_BKS = "INSERT INTO QN_BKS VALUES (?,?)";
+//                        pps = conn.prepareStatement(insertQN_BKS);
+//                        pps.setInt(1, rss.getInt("ID"));
+//                        pps.setInt(2, idBKS);
+//                        pps.execute();
+//                    }
+//                }
+//                
+//            }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             DBUtils.closeConnection(conn, pps);
         }
-        return false;
+        return true;
     }
     
     public List<BaiKhaoSat> selectBaiKhaoSat(){
@@ -185,7 +186,7 @@ public class KhaoSatDAO {
         return list;
     }
     
-    public List<BaiKhaoSat> selectBKSByCapBac(String name){
+    public List<BaiKhaoSat> selectBKSByCapBac(int idQN, String name){
         List<BaiKhaoSat> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pps = null;
@@ -193,16 +194,17 @@ public class KhaoSatDAO {
         try{
             String select = "SELECT * FROM BaiKhaoSat WHERE ID NOT IN (\n" +
                             "	SELECT BKS.ID FROM BaiKhaoSat BKS\n" +
-                            "	JOIN KhaoSat_CauHoi KS_CH ON BKS.ID = KS_CH.MaBaiKhaoSat\n" +
-                            "	JOIN CauHoi CH ON CH.ID = KS_CH.MaCauHoi\n" +
-                            "	JOIN TraLoi TL ON TL.IdCauHoi = CH.ID \n" +
-                            "	GROUP BY BKS.ID\n" +
+                            "	JOIN QN_BKS ON QN_BKS.MaBKS = BKS.ID\n" +
+                            "	JOIN QuanNhan QN ON QN.ID = QN_BKS.MaQN\n" +
+                            "	WHERE QN.ID = ? \n" +
                             ")\n" +
                             "AND DoiTuong = ?\n" +
-                            "AND TrangThai = N'Đang mở'";
+                            "AND TrangThai = N'Đang mở'"+ 
+                            "AND ThoiGianKetThuc >= GETDATE()";
             conn = DBUtils.getConnection();
             pps  = conn.prepareStatement(select);
-            pps.setString(1, name);
+            pps.setInt(1, idQN);
+            pps.setString(2, name);
             
             ResultSet rs = pps.executeQuery();
             while (rs.next()) {    
@@ -308,7 +310,7 @@ public class KhaoSatDAO {
                 DonVi donVi = new DonVi(rs.getInt("MaDonVi"), rs.getString("TenDonVi"));
                 CapBac capBac = new CapBac(rs.getInt("MaCapBac"), rs.getString("TenCapBac"));
                 
-                QuanNhan quanNhan = new QuanNhan(rs.getInt("ID"),rs.getString("TenTaiKhoan"), rs.getString("MatKhau"), 
+                QuanNhan quanNhan = new QuanNhan(rs.getInt(9),rs.getString("TenTaiKhoan"), rs.getString("MatKhau"), 
                         rs.getString("Email"), rs.getString("Cmnd"),rs.getString("HoTen"),
                         LocalDate.parse(rs.getString("NgaySinh")),capBac,donVi,rs.getInt("IdVaiTro"),rs.getString("TrangThai"));
                         
@@ -325,11 +327,11 @@ public class KhaoSatDAO {
     public List<CauHoi> ThongKeChiTietTraLoi(int idBKS, int idQN){
         Connection conn = null;
         PreparedStatement pps = null;
-        
+        System.out.println("id BKS "+idBKS + " id QN "+ idQN);
         List<CauHoi> list = new ArrayList<>();
         
         try{
-            String select = "SELECT * FROM BaiKhaoSat BKS JOIN KhaoSat_CauHoi KS_CH ON BKS.ID = KS_CH.MaBaiKhaoSat JOIN CauHoi CH ON CH.ID = KS_CH.MaCauHoi JOIN TraLoi TL ON TL.IdCauHoi = CH.ID JOIN QN_BKS ON BKS.ID = QN_BKS.MaBKS JOIN QuanNhan QN ON QN.ID = QN_BKS.MaQN WHERE BKS.ID = ? AND QN.ID = ?";
+            String select = "SELECT * FROM BaiKhaoSat BKS JOIN KhaoSat_CauHoi KS_CH ON BKS.ID = KS_CH.MaBaiKhaoSat JOIN CauHoi CH ON CH.ID = KS_CH.MaCauHoi JOIN QN_BKS ON BKS.ID = QN_BKS.MaBKS JOIN QuanNhan QN ON QN.ID = QN_BKS.MaQN JOIN TraLoi TL ON TL.IdCauHoi = CH.ID AND TL.Id_QuanNhan = QN.ID WHERE BKS.ID = ? AND QN.ID = ?";
             conn = DBUtils.getConnection();
             pps  = conn.prepareStatement(select);
             pps.setInt(1, idBKS);
@@ -338,6 +340,29 @@ public class KhaoSatDAO {
             while(rs.next()){
                 CauHoi cauHoi = new CauHoi( rs.getString("NoiDung"), rs.getString("LuaChon1")
                                          , rs.getString("LuaChon2"), rs.getString("LuaChon3"), rs.getString("LuaChon4"), rs.getString("HinhThucTraLoi"), rs.getString("NoiDungTraLoi"));
+                list.add(cauHoi);
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }finally{
+            DBUtils.closeConnection(conn, pps);
+        }
+        return list;
+    }
+    
+    public List<CauHoi> ThongKeSoLuongTraLoi(int idBKS){
+        Connection conn = null;
+        PreparedStatement pps = null;
+        List<CauHoi> list = new ArrayList<>();
+        
+        try{
+            String select = "SELECT * FROM dbo.ThongKeChiTietTraLoi(?)";
+            conn = DBUtils.getConnection();
+            pps  = conn.prepareStatement(select);
+            pps.setInt(1, idBKS);
+            ResultSet rs = pps.executeQuery();
+            while(rs.next()){
+                CauHoi cauHoi = new CauHoi(rs.getInt("ID"), rs.getString("NoiDung"), rs.getInt("SoLuongLuaChon1"), rs.getInt("SoLuongLuaChon2"), rs.getInt("SoLuongLuaChon3"), rs.getInt("SoLuongLuaChon4"));
                 list.add(cauHoi);
             }
         }catch(SQLException e){

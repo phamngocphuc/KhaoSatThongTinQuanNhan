@@ -32,7 +32,6 @@ public class CauHoiDAO {
             pps.setString(4, cauHoi.getLuaChon3());
             pps.setString(5, cauHoi.getLuaChon4());
             pps.setString(6, cauHoi.getHinhThuc());
-            
             if(!pps.execute()){
                 ResultSet rs = pps.getGeneratedKeys();
                 while(rs.next()){
@@ -68,7 +67,6 @@ public class CauHoiDAO {
                 pps.setString(4, cauHoi.getLuaChon3());
                 pps.setString(5, cauHoi.getLuaChon4());
                 pps.setString(6, cauHoi.getHinhThuc());
-                
                 if(!pps.execute()){
                     ResultSet rs = pps.getGeneratedKeys();
                     while(rs.next()){

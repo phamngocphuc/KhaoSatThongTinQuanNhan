@@ -245,13 +245,13 @@ public class ConfirmEmail extends javax.swing.JFrame {
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         boolean check = true;
         String matkhau = String.valueOf(txtMatkhauMoi.getPassword());
-        String re_matkhau = String.valueOf(txtMatkhauMoi.getPassword());
+        String re_matkhau = String.valueOf(txtNhapLaiMK.getPassword());
 
         if(Validation.isEmpty(matkhau) || Validation.isEmpty(re_matkhau)){
             JOptionPane.showMessageDialog(null,"Vui lòng điền đầy đủ thông tin !");
         }else{
             if(!matkhau.equals(re_matkhau)){
-                JOptionPane.showMessageDialog(null,"Mật khẩu nhập lại không trùng khớp !");
+                JOptionPane.showMessageDialog(null,"Mật khẩu không trùng khớp !");
                 check = false;
             }
 

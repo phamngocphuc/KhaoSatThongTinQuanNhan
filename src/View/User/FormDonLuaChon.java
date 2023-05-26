@@ -5,6 +5,7 @@
 package View.User;
 
 import Model.CauHoi;
+import javax.swing.JLabel;
 
 /**
  *
@@ -19,7 +20,7 @@ public class FormDonLuaChon extends javax.swing.JPanel {
     public FormDonLuaChon(CauHoi cauHoi,int soCau) {
         initComponents();
         txtSoCau.setText(String.valueOf(soCau));
-        txtNoiDung.setText(cauHoi.getNoiDung());
+        txtNoiDung.setText("<html>"+cauHoi.getNoiDung()+"</html>");
         rdA.setText(cauHoi.getLuaChon1());
         rdB.setText(cauHoi.getLuaChon2());
         rdC.setText(cauHoi.getLuaChon3());
@@ -72,7 +73,7 @@ public class FormDonLuaChon extends javax.swing.JPanel {
 
         txtSoCau.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

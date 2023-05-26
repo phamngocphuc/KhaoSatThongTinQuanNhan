@@ -21,7 +21,7 @@ public class FormDaLuaChon extends javax.swing.JPanel {
         initComponents();
         initComponents();
         txtSoCau.setText(String.valueOf(soCau));
-        txtNoiDung.setText(cauHoi.getNoiDung());
+        txtNoiDung.setText("<html>"+cauHoi.getNoiDung()+"</html>");
         ckLC1.setText(cauHoi.getLuaChon1());
         ckLC2.setText(cauHoi.getLuaChon2());
         ckLC3.setText(cauHoi.getLuaChon3());
@@ -47,6 +47,8 @@ public class FormDaLuaChon extends javax.swing.JPanel {
         ckLC3 = new javax.swing.JCheckBox();
         ckLC4 = new javax.swing.JCheckBox();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Chọn Đáp Án:");
 
@@ -58,7 +60,7 @@ public class FormDaLuaChon extends javax.swing.JPanel {
 
         txtSoCau.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         ckLC2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 

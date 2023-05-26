@@ -18,7 +18,7 @@ public class FormTuLuan extends javax.swing.JPanel {
     public FormTuLuan(CauHoi cauHoi, int soCau) {
         initComponents();
         txtSoCau.setText(String.valueOf(soCau));
-        txtNoiDung.setText(cauHoi.getNoiDung());
+        txtNoiDung.setText("<html>"+cauHoi.getNoiDung()+"</html>");
     }
 
     /**
@@ -38,6 +38,8 @@ public class FormTuLuan extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Chọn Đáp Án:");
 
@@ -49,7 +51,7 @@ public class FormTuLuan extends javax.swing.JPanel {
 
         txtSoCau.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        txtNoiDung.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);

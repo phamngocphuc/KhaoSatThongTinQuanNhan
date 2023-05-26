@@ -18,7 +18,13 @@ public class CauHoi {
     private String luaChon4;
     private String hinhThuc;
     private String traloi;
-
+    
+    
+    private int soLuongLC1;
+    private int soLuongLC2;
+    private int soLuongLC3;
+    private int soLuongLC4;
+    
     public CauHoi() {
     }
     
@@ -60,6 +66,15 @@ public class CauHoi {
         this.luaChon3 = luaChon3;
         this.luaChon4 = luaChon4;
         this.hinhThuc = hinhThuc;
+    }
+
+    public CauHoi(int id, String noiDung, int soLuongLC1, int soLuongLC2, int soLuongLC3, int soLuongLC4) {
+        this.id = id;
+        this.noiDung = noiDung;
+        this.soLuongLC1 = soLuongLC1;
+        this.soLuongLC2 = soLuongLC2;
+        this.soLuongLC3 = soLuongLC3;
+        this.soLuongLC4 = soLuongLC4;
     }
 
     public String getTenBKS() {
@@ -132,5 +147,37 @@ public class CauHoi {
 
     public void setTraloi(String traloi) {
         this.traloi = traloi;
+    }
+
+    public int getSoLuongLC1() {
+        return soLuongLC1;
+    }
+
+    public void setSoLuongLC1(int soLuongLC1) {
+        this.soLuongLC1 = soLuongLC1;
+    }
+
+    public int getSoLuongLC2() {
+        return soLuongLC2;
+    }
+
+    public void setSoLuongLC2(int soLuongLC2) {
+        this.soLuongLC2 = soLuongLC2;
+    }
+
+    public int getSoLuongLC3() {
+        return soLuongLC3;
+    }
+
+    public void setSoLuongLC3(int soLuongLC3) {
+        this.soLuongLC3 = soLuongLC3;
+    }
+
+    public int getSoLuongLC4() {
+        return soLuongLC4;
+    }
+
+    public void setSoLuongLC4(int soLuongLC4) {
+        this.soLuongLC4 = soLuongLC4;
     }
 }

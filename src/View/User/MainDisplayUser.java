@@ -50,38 +50,21 @@ public class MainDisplayUser extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        anhnen = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnInfoUser = new javax.swing.JButton();
         btnUserExam = new javax.swing.JButton();
         btnResultExam = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
+        anhnen = new javax.swing.JLabel();
         tabMainUser = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        anhnen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/anhnen.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(anhnen, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(anhnen, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 200));
-
+        jPanel2.setBackground(new java.awt.Color(0, 0, 51));
         jPanel2.setLayout(new java.awt.GridLayout(4, 0, 0, 15));
 
         btnInfoUser.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -122,7 +105,12 @@ public class MainDisplayUser extends javax.swing.JFrame {
         });
         jPanel2.add(btnDangXuat);
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 250));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 270));
+
+        anhnen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/images (2).jpg"))); // NOI18N
+        jPanel1.add(anhnen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 199, 650));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 650));
         getContentPane().add(tabMainUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1110, 650));
 
         pack();

@@ -57,7 +57,7 @@ public class QuanNhanDAO {
         Connection conn = null;
         PreparedStatement pps = null;
         try{
-            String insert = "INSERT INTO QuanNhan VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String insert = "INSERT INTO QuanNhan VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             conn = DBUtils.getConnection();
             pps  = conn.prepareStatement(insert);
             pps  = conn.prepareStatement(insert,Statement.RETURN_GENERATED_KEYS);
@@ -71,30 +71,32 @@ public class QuanNhanDAO {
             pps.setInt(8, quanNhan.getDonVi().getMaDonVi());
             pps.setInt(9, 1);
             pps.setString(10,quanNhan.getTrangThai());
-            if(!pps.execute()){
-                ResultSet rs = pps.getGeneratedKeys();
-                while(rs.next()){
-                    idQN = rs.getInt(1);
-                    String select = "SELECT * FROM BaiKhaoSat WHERE DoiTuong =  ?";
-                    pps = conn.prepareStatement(select);
-                    pps.setString(1, quanNhan.getCapBac().getTenCapBac());
-                    ResultSet rss = pps.executeQuery();
-                    while(rss.next()){
-                        String insertQN_BKS = "INSERT INTO QN_BKS VALUES (?,?)";
-                        pps = conn.prepareStatement(insertQN_BKS);
-                        pps.setInt(1, idQN);
-                        pps.setInt(2, rss.getInt("ID"));
-                        pps.execute();
-                    }
-                    check = true;
-                }
-            }
+            pps.setString(11,null);
+            return pps.execute();
+//            if(!pps.execute()){
+//                ResultSet rs = pps.getGeneratedKeys();
+//                while(rs.next()){
+//                    idQN = rs.getInt(1);
+//                    String select = "SELECT * FROM BaiKhaoSat WHERE DoiTuong =  ?";
+//                    pps = conn.prepareStatement(select);
+//                    pps.setString(1, quanNhan.getCapBac().getTenCapBac());
+//                    ResultSet rss = pps.executeQuery();
+//                    while(rss.next()){
+//                        String insertQN_BKS = "INSERT INTO QN_BKS VALUES (?,?)";
+//                        pps = conn.prepareStatement(insertQN_BKS);
+//                        pps.setInt(1, idQN);
+//                        pps.setInt(2, rss.getInt("ID"));
+//                        pps.execute();
+//                    }
+//                    check = true;
+//                }
+//            }
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }finally{
             DBUtils.closeConnection(conn, pps);
         }
-        return check;
+        return true;
     }
     
     public int selectIdExam(String rank,int id){
@@ -379,9 +381,9 @@ public class QuanNhanDAO {
             conn = DBUtils.getConnection();
             pps  = conn.prepareStatement(insert);
             for (TraLoi traLoi : list) {
-                pps.setString(1, traLoi.getNoiDung());
+                pps.setInt(1, traLoi.getCauHoi().getId());
                 pps.setInt(2, traLoi.getQuanNhan().getId());
-                pps.setInt(3, traLoi.getCauHoi().getId());
+                pps.setString(3, traLoi.getNoiDung());
                 pps.addBatch();
             }
             int[] kq = pps.executeBatch();
@@ -389,92 +391,6 @@ public class QuanNhanDAO {
                 check = true;
             }
             
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            DBUtils.closeConnection(conn, pps);
-        }
-        return check;
-    }
-    
-    public boolean insertStatistic(ThongKe statistic){
-        boolean check = false;
-        Connection conn  = null;
-        PreparedStatement pps = null;
-        try {
-            String insert = "INSERT INTO Statistic VALUES (?,?,?,?,?,?)";
-            conn = DBUtils.getConnection();
-            pps  = conn.prepareStatement(insert);
-            pps.setInt(1, statistic.getUserId().getId());
-            pps.setInt(2, statistic.getNumTaken());
-            pps.setInt(3, statistic.getNumWrong());
-            pps.setTime(4, Time.valueOf( statistic.getTimeTaken()));
-            pps.setString(5,statistic.getScore());
-            pps.setString(6,statistic.getResult());
-            
-            if(pps.executeUpdate() > 0){
-                check = true;
-            }
-            
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            DBUtils.closeConnection(conn, pps);
-        }
-        return check;
-    }
-    
-    public String[] selectInfoResultById(int id){
-        Connection conn = null;
-        PreparedStatement pps = null;
-        String[] strings = new String[100];
-        try{
-            String select = "SELECT *\n" +
-                            "FROM Users\n" +
-                            "JOIN Exams ON Users.Exam_code = Exams.Exam_Id\n" +
-                            "JOIN Exam_categories ON Exams.Catogory_id = Exam_categories.CategoryId\n" +
-                            "JOIN Exams_questions ON Exams_questions.Exam_code = Exams.Exam_Id\n" +
-                            "JOIN Questions ON Questions.Question_id = Exams_questions.Question_Id\n" +
-                            "LEFT JOIN Choices ON Choices.UserId = Users.UserId AND Choices.Question_id = Questions.Question_id\n" +
-                            "LEFT JOIN Statistic ON Statistic.User_id = Users.UserId\n" +
-                            "WHERE Users.UserId = ?";
-            conn = DBUtils.getConnection();
-            pps  = conn.prepareStatement(select);
-            pps.setInt(1, id);
-            ResultSet rs = pps.executeQuery();
-            while(rs.next()){
-                strings[0] = rs.getString("Fullname");
-                strings[1] = rs.getString("Date_of_birth");
-                strings[2] = rs.getString("Exam_Id");
-                strings[3] = rs.getString("Exam_name");
-                strings[4] = rs.getString("Category_name");
-                strings[5] = rs.getString("Num_taken");
-                strings[6] = rs.getString("Num__wrong");
-                strings[7] = rs.getString("Time_taken");
-                strings[8] = rs.getString("Score");
-                strings[9] = rs.getString("Result");
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }finally{
-            DBUtils.closeConnection(conn, pps);
-        }
-        return strings;
-    }
-    
-    public boolean selectStatisticById(int id ){
-        boolean check = false;
-        Connection conn = null;
-        PreparedStatement pps = null;
-        try {
-            String select = "SELECT * FROM Statistic WHERE Statistic.User_id = ?";
-            conn = DBUtils.getConnection();
-            pps  = conn.prepareStatement(select);
-            pps.setInt(1, id);
-            ResultSet rs = pps.executeQuery();
-            while(rs.next()){
-                check = true;
-            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -532,7 +448,7 @@ public class QuanNhanDAO {
         List<CauHoi> list = new ArrayList<>();
         
         try{
-            String select = "SELECT * FROM BaiKhaoSat BKS JOIN KhaoSat_CauHoi KS_CH ON BKS.ID = KS_CH.MaBaiKhaoSat JOIN CauHoi CH ON CH.ID = KS_CH.MaCauHoi JOIN TraLoi TL ON TL.IdCauHoi = CH.ID JOIN QN_BKS ON BKS.ID = QN_BKS.MaBKS JOIN QuanNhan QN ON QN.ID = QN_BKS.MaQN WHERE QN.ID = ?";
+            String select = "SELECT * FROM BaiKhaoSat BKS JOIN KhaoSat_CauHoi KS_CH ON BKS.ID = KS_CH.MaBaiKhaoSat JOIN CauHoi CH ON CH.ID = KS_CH.MaCauHoi JOIN QN_BKS ON BKS.ID = QN_BKS.MaBKS JOIN QuanNhan QN ON QN.ID = QN_BKS.MaQN JOIN TraLoi TL ON TL.IdCauHoi = CH.ID AND TL.Id_QuanNhan = QN.ID WHERE QN.ID = ?";
             conn = DBUtils.getConnection();
             pps  = conn.prepareStatement(select);
             pps.setInt(1, id);
@@ -550,6 +466,58 @@ public class QuanNhanDAO {
         return list;
     }
     
+    public boolean insetBKS_QN(int idQN, int idBKS){
+        Connection conn  = null;
+        PreparedStatement pps = null;
+        try {
+            String insert = "INSERT INTO QN_BKS VALUES (?,?)";
+            conn = DBUtils.getConnection();
+            pps  = conn.prepareStatement(insert);
+            pps.setInt(1, idQN);
+            pps.setInt(2, idBKS);
+            return pps.execute();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DBUtils.closeConnection(conn, pps);
+        }
+        
+        return true;
+    }
     
+    public boolean kiemTraEmailTonTai(String email, int id){
+        Connection conn  = null;
+        PreparedStatement pps = null;
+        try {
+            if(id > 0){
+                String select = "SELECT *FROM QuanNhan WHERE Email = ? AND ID != ?";
+                conn = DBUtils.getConnection();
+                pps  = conn.prepareStatement(select);
+                pps.setString(1, email);
+                pps.setInt(2, id);
+                ResultSet rs = pps.executeQuery();
+                if(rs.next()){
+                    return true;
+                }
+            }else{
+                String select = "SELECT * FROM QuanNhan WHERE Email = ?";
+                conn = DBUtils.getConnection();
+                pps  = conn.prepareStatement(select);
+                pps.setString(1, email);
+                ResultSet rs = pps.executeQuery();
+                if(rs.next()){
+                    return true;
+                }
+            }
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DBUtils.closeConnection(conn, pps);
+        }
+        
+        return false;
+    }
 }
 

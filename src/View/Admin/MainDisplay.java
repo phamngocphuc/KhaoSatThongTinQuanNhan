@@ -32,37 +32,22 @@ public class MainDisplay extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnQLKhaoSat = new javax.swing.JButton();
         btnQLUser = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         tabMain = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/anhnen.jpg"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 210));
-
+        jPanel3.setBackground(new java.awt.Color(0, 0, 51));
         jPanel3.setLayout(new java.awt.GridLayout(4, 0, 0, 15));
 
         btnQLKhaoSat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -107,17 +92,26 @@ public class MainDisplay extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+            .addGap(0, 302, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 390));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 200, 300));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/images (2).jpg"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 199, 650));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 650));
         getContentPane().add(tabMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1110, 650));
 
         pack();
@@ -132,25 +126,19 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQLKhaoSatActionPerformed
 
     private void btnQLUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLUserActionPerformed
-        String namebtn = btnQLUser.getActionCommand();
-        if(namebtn.equalsIgnoreCase("Quản Lý Quân Nhân")){
-            if(tabMain.getTabCount() != 0 ){
+        if(tabMain.getTabCount() != 0 ){
                 tabMain.removeAll();
             }
             QuanLyQuanNhan managerUser = new QuanLyQuanNhan();
             tabMain.add("Quản Lý Người Thi",managerUser);
-        }
     }//GEN-LAST:event_btnQLUserActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
-        String namebtn = btnThongKe.getActionCommand();
-        if(namebtn.equalsIgnoreCase("Thống Kê")){
-            if(tabMain.getTabCount() != 0 ){
+        if(tabMain.getTabCount() != 0 ){
                 tabMain.removeAll();
-            }
-            QuanLyThongKe managerThongKe = new QuanLyThongKe();
-            tabMain.add("Thống Kê",managerThongKe);
         }
+        QuanLyThongKe managerThongKe = new QuanLyThongKe();
+        tabMain.add("Thống Kê",managerThongKe);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
